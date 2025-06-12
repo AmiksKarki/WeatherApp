@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     PROJECT_VERSION: str = "0.1.0"
 
     # API Keys & External Services
-    OPENWEATHER_API_KEY: str = Field(..., description="OpenWeatherMap API key")
+    OPENWEATHER_API_KEY: str = Field("dummy_key", description="OpenWeatherMap API key")
     OPENWEATHER_API_URL: str = "https://api.openweathermap.org/data/2.5"
 
     # Redis Configuration
