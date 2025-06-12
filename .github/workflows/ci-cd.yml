@@ -25,7 +25,7 @@ jobs:
     - name: Check imports with isort
       run: isort --check-only --profile black .
     - name: Lint with ruff
-      run: ruff .
+      run: ruff check .
     - name: Type check with mypy
       run: mypy app
 
