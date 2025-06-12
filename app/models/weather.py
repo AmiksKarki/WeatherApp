@@ -1,9 +1,11 @@
-from typing import Dict, List, Any, Optional
+from typing import List
+
 from pydantic import BaseModel, Field
 
 
 class WeatherDetail(BaseModel):
     """Weather details model"""
+
     description: str = Field(..., description="Weather description")
     icon: str = Field(..., description="Weather icon code")
     temperature: float = Field(..., description="Temperature in Celsius")
@@ -16,6 +18,7 @@ class WeatherDetail(BaseModel):
 
 class WeatherResponse(BaseModel):
     """Current weather response model"""
+
     success: bool = Field(True, description="Operation success status")
     city: str = Field(..., description="City name")
     country: str = Field(..., description="Country code")
@@ -26,6 +29,7 @@ class WeatherResponse(BaseModel):
 
 class ForecastItem(BaseModel):
     """Forecast item model"""
+
     date: str = Field(..., description="Forecast date (YYYY-MM-DD)")
     time: str = Field(..., description="Forecast time (HH:MM:SS)")
     timestamp: int = Field(..., description="Data timestamp (Unix, UTC)")
@@ -41,6 +45,7 @@ class ForecastItem(BaseModel):
 
 class ForecastResponse(BaseModel):
     """Forecast response model"""
+
     success: bool = Field(True, description="Operation success status")
     city: str = Field(..., description="City name")
     country: str = Field(..., description="Country code")
@@ -50,5 +55,6 @@ class ForecastResponse(BaseModel):
 
 class ErrorResponse(BaseModel):
     """Error response model"""
+
     success: bool = Field(False, description="Operation success status")
     error: str = Field(..., description="Error message")

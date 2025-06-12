@@ -8,9 +8,10 @@ from app.core.config import settings
 
 logger = logging.getLogger("weatherpy")
 
+
 class RedisService:
     """Service for interacting with Redis cache"""
-    
+
     def __init__(self):
         """Initialize Redis connection"""
         self.redis_client = None
@@ -19,7 +20,7 @@ class RedisService:
         self.password = settings.REDIS_PASSWORD
         self.db = settings.REDIS_DB
         self.ttl = settings.REDIS_CACHE_TTL
-    
+
     async def connect(self) -> None:
         """Connect to Redis server"""
         try:
@@ -37,18 +38,18 @@ class RedisService:
         except redis.ConnectionError as e:
             logger.error(f"Failed to connect to Redis: {e}")
             # Don't raise here - service should work without cache
-    
+
     async def close(self) -> None:
         """Close Redis connection"""
         if self.redis_client:
             await self.redis_client.close()
             logger.info("Redis connection closed")
-    
+
     async def get(self, key: str) -> Optional[Any]:
         """Get value from Redis cache"""
         if not self.redis_client:
             return None
-        
+
         try:
             value = await self.redis_client.get(key)
             if value:
@@ -59,12 +60,12 @@ class RedisService:
         except Exception as e:
             logger.error(f"Error getting from Redis cache: {e}")
             return None
-    
+
     async def set(self, key: str, value: Any) -> bool:
         """Set value in Redis cache with TTL"""
         if not self.redis_client:
             return False
-        
+
         try:
             serialized_value = json.dumps(value)
             await self.redis_client.set(key, serialized_value, ex=self.ttl)

@@ -1,6 +1,7 @@
+from unittest.mock import AsyncMock, patch
+
 import pytest
 from fastapi.testclient import TestClient
-from unittest.mock import patch, AsyncMock
 
 from app.main import app
 
@@ -37,16 +38,16 @@ def test_get_weather(mock_get_weather, client):
             "humidity": 65,
             "pressure": 1013,
             "wind_speed": 3.6,
-            "clouds": 20
+            "clouds": 20,
         },
         "timestamp": 1619712000,
-        "timezone": 3600
+        "timezone": 3600,
     }
     mock_get_weather.return_value = AsyncMock(return_value=mock_weather_data)()
-    
+
     # Call the API
     response = client.get("/api/weather?city=London")
-    
+
     # Check response
     assert response.status_code == 200
     data = response.json()
@@ -77,7 +78,7 @@ def test_get_forecast(mock_get_forecast, client):
                 "description": "scattered clouds",
                 "icon": "03d",
                 "wind_speed": 4.5,
-                "clouds": 40
+                "clouds": 40,
             },
             {
                 "date": "2023-05-16",
@@ -90,16 +91,16 @@ def test_get_forecast(mock_get_forecast, client):
                 "description": "broken clouds",
                 "icon": "04d",
                 "wind_speed": 5.1,
-                "clouds": 75
-            }
+                "clouds": 75,
+            },
         ],
-        "timezone": 3600
+        "timezone": 3600,
     }
     mock_get_forecast.return_value = AsyncMock(return_value=mock_forecast_data)()
-    
+
     # Call the API
     response = client.get("/api/forecast?city=London")
-    
+
     # Check response
     assert response.status_code == 200
     data = response.json()

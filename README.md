@@ -21,7 +21,8 @@ WeatherPy is a FastAPI-based microservice that provides current weather and 5-da
    git clone https://github.com/AmiksKarki/WeatherApp.git
    cd weatherpy
    ```
-
+[mypy-redis.*]
+ignore_missing_imports = True
 2. **Set up environment variables:**
    - Copy `.env.example` to `.env` and fill in your OpenWeatherMap API key.
 
