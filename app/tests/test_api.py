@@ -22,7 +22,7 @@ def test_health_check(client):
     assert "version" in data
 
 
-@patch("app.services.weather_service.WeatherService.get_current_weather")
+@patch("app.services.weather_service.WeatherService.get_current_weather", new_callable=AsyncMock)
 def test_get_weather(mock_get_weather, client):
     """Test the weather endpoint"""
     # Mock the weather service
@@ -43,7 +43,7 @@ def test_get_weather(mock_get_weather, client):
         "timestamp": 1619712000,
         "timezone": 3600,
     }
-    mock_get_weather.return_value = AsyncMock(return_value=mock_weather_data)()
+    mock_get_weather.return_value = mock_weather_data
 
     # Call the API
     response = client.get("/api/weather?city=London")
@@ -58,7 +58,7 @@ def test_get_weather(mock_get_weather, client):
     assert data["weather"]["temperature"] == 18.5
 
 
-@patch("app.services.weather_service.WeatherService.get_forecast")
+@patch("app.services.weather_service.WeatherService.get_forecast", new_callable=AsyncMock)
 def test_get_forecast(mock_get_forecast, client):
     """Test the forecast endpoint"""
     # Mock the forecast service
@@ -96,7 +96,7 @@ def test_get_forecast(mock_get_forecast, client):
         ],
         "timezone": 3600,
     }
-    mock_get_forecast.return_value = AsyncMock(return_value=mock_forecast_data)()
+    mock_get_forecast.return_value = mock_forecast_data
 
     # Call the API
     response = client.get("/api/forecast?city=London")
