@@ -22,7 +22,10 @@ def test_health_check(client):
     assert "version" in data
 
 
-@patch("app.services.weather_service.WeatherService.get_current_weather", new_callable=AsyncMock)
+@patch(
+    "app.services.weather_service.WeatherService.get_current_weather",
+    new_callable=AsyncMock,
+)
 def test_get_weather(mock_get_weather, client):
     """Test the weather endpoint"""
     # Mock the weather service
@@ -58,7 +61,9 @@ def test_get_weather(mock_get_weather, client):
     assert data["weather"]["temperature"] == 18.5
 
 
-@patch("app.services.weather_service.WeatherService.get_forecast", new_callable=AsyncMock)
+@patch(
+    "app.services.weather_service.WeatherService.get_forecast", new_callable=AsyncMock
+)
 def test_get_forecast(mock_get_forecast, client):
     """Test the forecast endpoint"""
     # Mock the forecast service
